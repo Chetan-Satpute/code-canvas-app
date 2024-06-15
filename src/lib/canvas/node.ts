@@ -16,7 +16,7 @@ export function drawNode(ctx: CanvasRenderingContext2D, node: CanvasNode) {
   const opacityColorValue = Math.floor(node.opacity * 255);
   const opacityColorString = opacityColorValue.toString(16).padStart(2, '0');
 
-  const strokeColor = '#f5f3ee' + opacityColorString;
+  const strokeColor = '#ffffff' + opacityColorString;
   const fillColor = node.color + opacityColorString;
 
   // border
