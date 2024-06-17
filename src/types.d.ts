@@ -5,6 +5,8 @@ declare global {
     interface IntrinsicElements {
       'md-filled-button': unknown;
       'md-filled-tonal-button': unknown;
+      'md-icon-button': unknown;
+      'md-icon': unknown;
     }
   }
 }
