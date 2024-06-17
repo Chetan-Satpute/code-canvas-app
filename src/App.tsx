@@ -1,9 +1,11 @@
+import {RouterProvider} from 'react-router-dom';
+import router from './lib/router';
+
+import '@fontsource/salsa';
+import '@fontsource/kalam';
+
 function App() {
-  return (
-    <div className="flex h-screen w-screen items-center justify-center">
-      <h1>Code Canvas</h1>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
