@@ -4,6 +4,9 @@
 
 :root,
 :host {
+  --md-ref-typeface-brand: Salsa;
+  --md-ref-typeface-plain: Salsa, system-ui;
+
   --md-sys-color-background: #141317;
   --md-sys-color-on-background: #e6e1e7;
   --md-sys-color-surface: #141317;
