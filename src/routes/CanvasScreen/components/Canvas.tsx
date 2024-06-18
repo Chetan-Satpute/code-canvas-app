@@ -1,9 +1,28 @@
 import {useCallback, useRef} from 'react';
 import useAnimationFrame from '../../../hooks/useAnimationFrame';
+import {drawNode} from '../../../lib/canvas/node';
+import useCanvasInteractions from '../../../hooks/useCanvasInteractions';
+import useFrames from '../hooks/useFrames';
+import {drawEdge} from '../../../lib/canvas/edge';
+import {drawLabel} from '../../../lib/canvas/label';
 
 function Canvas() {
   const canvasContainerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const {frameRef, nextFrame} = useFrames([]);
+
+  const {
+    transformMatrix,
+    handleMouseDown,
+    handleMouseUp,
+    handleMouseMove,
+    handleTouchStart,
+    handleTouchEnd,
+    handleTouchMove,
+    handleDoubleClick,
+    handleWheel,
+  } = useCanvasInteractions();
 
   const animationFrameCallback = useCallback(() => {
     const canvasContainer = canvasContainerRef.current;
@@ -18,13 +37,33 @@ function Canvas() {
     // Resize and clear canvas
     canvas.height = containerHeight;
     canvas.width = containerWidth;
-  }, []);
+
+    ctx.setTransform(transformMatrix);
+
+    const frame = frameRef.current;
+
+    for (const node of frame.nodes) drawNode(ctx, node);
+    for (const edge of frame.edges) drawEdge(ctx, edge);
+    for (const label of frame.labels) drawLabel(ctx, label);
+
+    nextFrame();
+  }, [transformMatrix, frameRef, nextFrame]);
 
   useAnimationFrame(animationFrameCallback);
 
   return (
     <div ref={canvasContainerRef} className="flex-1 overflow-auto">
-      <canvas ref={canvasRef} />
+      <canvas
+        ref={canvasRef}
+        onDoubleClick={handleDoubleClick}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onWheel={handleWheel}
+      />
     </div>
   );
 }
