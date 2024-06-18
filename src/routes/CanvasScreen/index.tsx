@@ -1,3 +1,4 @@
+import {Outlet} from 'react-router-dom';
 import '@material/web/iconbutton/icon-button.js';
 import '@material/web/icon/icon.js';
 import Header from './components/Header';
@@ -10,7 +11,9 @@ function CanvasScreen() {
         <Header />
         <Canvas />
       </div>
-      <div className="h-1/2 w-full lg:h-full lg:w-2/5"></div>
+      <div className="flex h-1/2 w-full lg:h-full lg:w-2/5">
+        <Outlet />
+      </div>
     </div>
   );
 }
