@@ -7,6 +7,7 @@ declare global {
       'md-filled-tonal-button': unknown;
       'md-icon-button': unknown;
       'md-icon': unknown;
+      'md-outlined-button': unknown;
     }
   }
 }
