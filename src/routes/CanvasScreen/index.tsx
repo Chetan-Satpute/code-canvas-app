@@ -10,7 +10,7 @@ function CanvasScreen() {
         <Header />
         <Canvas />
       </div>
-      <div className="h-1/2 w-full bg-blue-500 lg:h-full lg:w-2/5"></div>
+      <div className="h-1/2 w-full lg:h-full lg:w-2/5"></div>
     </div>
   );
 }

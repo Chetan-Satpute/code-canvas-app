@@ -1,4 +1,5 @@
 import '@material/web/button/filled-tonal-button.js';
+import FullscreenButton from '../components/FullscreenButton';
 
 function HomeScreen() {
   return (
@@ -10,6 +11,7 @@ function HomeScreen() {
         <p className="mb-4 text-center font-kalam text-xl text-on-surface lg:text-left">
           Interactive Exploration of Algorithms & Data Structures
         </p>
+        <FullscreenButton variant='long' />
       </div>
       <div className="flex flex-1 flex-col justify-center gap-4 p-4">
         <md-filled-tonal-button class="text-base">Array</md-filled-tonal-button>
