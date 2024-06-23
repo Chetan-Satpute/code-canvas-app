@@ -46,6 +46,6 @@ export function drawLabel(ctx: CanvasRenderingContext2D, label: CanvasLabel) {
       break;
   }
 
-  ctx.font = `bold ${NODE_HEIGHT / 2}px Roboto`;
+  ctx.font = `bold ${NODE_HEIGHT / 2}px Salsa`;
   ctx.fillText(label.text, x, y);
 }
