@@ -4,20 +4,14 @@ import '@material/web/icon/icon.js';
 import Header from './components/Header';
 import Canvas from './components/Canvas';
 import {useStructure} from './hooks/useStructure';
+import CanvasScreenLoading from './Loading';
+import CanvasScreenError from './Error';
 
 function CanvasScreen() {
-  const {structureData, isLoading} = useStructure('array');
+  const {structureData, isLoading, isError} = useStructure('array');
 
-  if (isLoading)
-    return (
-      <div>
-        <p>Loading...</p>
-      </div>
-    );
-
-  if (!structureData) {
-    return <p>Fetch error...</p>;
-  }
+  if (isLoading) return <CanvasScreenLoading />;
+  if (!structureData || isError) return <CanvasScreenError />;
 
   const frames = [structureData.frame];
 
