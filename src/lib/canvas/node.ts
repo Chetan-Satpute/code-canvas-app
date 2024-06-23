@@ -57,7 +57,7 @@ export function drawNode(ctx: CanvasRenderingContext2D, node: CanvasNode) {
   ctx.fillStyle = strokeColor;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.font = `bold ${NODE_HEIGHT / 2}px Roboto`;
+  ctx.font = `bold ${NODE_HEIGHT / 2}px Salsa`;
   ctx.fillText(
     !(node.value || node.value === 0) ? '-' : node.value.toString(),
     node.x + NODE_WIDTH / 2,
