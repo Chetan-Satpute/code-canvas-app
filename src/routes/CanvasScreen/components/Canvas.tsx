@@ -5,12 +5,19 @@ import useCanvasInteractions from '../../../hooks/useCanvasInteractions';
 import useFrames from '../hooks/useFrames';
 import {drawEdge} from '../../../lib/canvas/edge';
 import {drawLabel} from '../../../lib/canvas/label';
+import {Frame} from '../../../lib/types';
 
-function Canvas() {
+interface CanvasProps {
+  frames: Frame[];
+}
+
+function Canvas(props: CanvasProps) {
+  const {frames} = props;
+
   const canvasContainerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const {frameRef, nextFrame} = useFrames([]);
+  const {frameRef, nextFrame} = useFrames(frames);
 
   const {
     transformMatrix,
