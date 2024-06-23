@@ -1,4 +1,4 @@
-import {Outlet} from 'react-router-dom';
+import {Outlet, useParams} from 'react-router-dom';
 import '@material/web/iconbutton/icon-button.js';
 import '@material/web/icon/icon.js';
 import Header from './components/Header';
@@ -8,7 +8,10 @@ import CanvasScreenLoading from './Loading';
 import CanvasScreenError from './Error';
 
 function CanvasScreen() {
-  const {structureData, isLoading, isError} = useStructure('array');
+  const params = useParams();
+  const structureId = params.structureId!;
+
+  const {structureData, isLoading, isError} = useStructure(structureId);
 
   if (isLoading) return <CanvasScreenLoading />;
   if (!structureData || isError) return <CanvasScreenError />;
