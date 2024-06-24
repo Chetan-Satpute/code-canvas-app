@@ -2,22 +2,30 @@ import '@material/web/button/filled-tonal-button.js';
 import '@material/web/button/outlined-button.js';
 import '@material/web/textfield/filled-text-field.js';
 import '@material/web/icon/icon.js';
+import {FunctionInfo} from '../../../lib/types';
 
-function FunctionCard() {
-  const isAnimate = false;
+interface FunctionCardProps extends FunctionInfo {}
+
+function FunctionCard(props: FunctionCardProps) {
+  const {name, parameters, animated} = props;
+
+  const inputFields = parameters.map(param => (
+    <md-filled-text-field
+      key={param.label}
+      label={param.label}
+      placeholder={param.placeholder}
+      supporting-text={param.supportingText}
+    />
+  ));
 
   return (
     <div className="mb-4 flex flex-col gap-2 px-4">
-      <h4 className="font-salsa font-bold text-on-surface">Set array</h4>
+      <h4 className="font-salsa font-bold text-on-surface">{name}</h4>
 
-      <md-filled-text-field
-        label="values"
-        placeholder="0,1,2,3,4,5"
-        supporting-text="comma seperated values of array"
-      />
+      {inputFields}
 
       <div className="flex justify-end">
-        {isAnimate ? (
+        {animated ? (
           <md-filled-tonal-button trailing-icon>
             Animate
             <md-icon slot="icon" class="icon-filled">
