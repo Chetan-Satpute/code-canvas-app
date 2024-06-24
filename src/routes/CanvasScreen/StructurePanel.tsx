@@ -1,7 +1,12 @@
+import FunctionCard from './components/FunctionCard';
+
 function StructurePanel() {
   return (
-    <div className="flex flex-1 items-center justify-center">
-      <h2 className="font-salsa text-2xl text-on-surface">Structure panel</h2>
+    <div className="flex-1 overflow-auto">
+      <h2 className="text-center font-salsa text-xl text-on-surface">
+        Modify structure
+      </h2>
+      <FunctionCard />
     </div>
   );
 }

@@ -8,6 +8,7 @@ declare global {
       'md-icon-button': unknown;
       'md-icon': unknown;
       'md-outlined-button': unknown;
+      'md-filled-text-field': unknown;
     }
   }
 }
