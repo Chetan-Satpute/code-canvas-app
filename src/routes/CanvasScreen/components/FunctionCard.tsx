@@ -1,5 +1,6 @@
 import {useState} from 'react';
-import {useOutletContext, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
+import '@material/web/progress/circular-progress.js';
 import '@material/web/button/filled-tonal-button.js';
 import '@material/web/button/outlined-button.js';
 import '@material/web/textfield/filled-text-field.js';
@@ -11,7 +12,9 @@ import {
   FunctionArgumentType,
   FunctionInfo,
 } from '../../../lib/types';
-import {CanvasScreenOutletContext} from '../types';
+import FilledTonalButton from '../../../components/FilledTonalButton';
+import OutlinedButton from '../../../components/OutlinedButton';
+import useExecuteFunction from '../../../hooks/useExecuteFunction';
 
 interface FunctionCardProps extends FunctionInfo {}
 
@@ -21,8 +24,8 @@ function FunctionCard(props: FunctionCardProps) {
   const params = useParams();
   const structureName = params.structureId!;
 
-  const {executeFunction, isExecutionFunctionSubmitting} =
-    useOutletContext() as CanvasScreenOutletContext;
+  const {executeFunction, isLoading: isExecutionFunctionSubmitting} =
+    useExecuteFunction();
 
   const [values, setValues] = useState(() => propsToValuesState(props));
   const [errors, setErrors] = useState(() => propsToErrorState(props));
@@ -98,27 +101,21 @@ function FunctionCard(props: FunctionCardProps) {
 
       <div className="flex justify-end">
         {animated ? (
-          <md-filled-tonal-button
-            trailing-icon
+          <FilledTonalButton
+            title="Animate"
+            endIcon="play_circle"
+            loading={isExecutionFunctionSubmitting}
+            disabled={isExecutionFunctionSubmitting}
             onClick={handleSubmit}
-            disabled={isExecutionFunctionSubmitting || undefined}
-          >
-            Animate
-            <md-icon slot="icon" class="icon-filled">
-              play_circle
-            </md-icon>
-          </md-filled-tonal-button>
+          />
         ) : (
-          <md-outlined-button
-            trailing-icon
+          <OutlinedButton
+            title="Run"
+            endIcon="skip_next"
+            loading={isExecutionFunctionSubmitting}
+            disabled={isExecutionFunctionSubmitting}
             onClick={handleSubmit}
-            disabled={isExecutionFunctionSubmitting || undefined}
-          >
-            Run
-            <md-icon slot="icon" class="icon-filled">
-              skip_next
-            </md-icon>
-          </md-outlined-button>
+          />
         )}
       </div>
     </div>

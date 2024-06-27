@@ -5,7 +5,6 @@ import Canvas from './components/Canvas';
 import {useStructure} from './hooks/useStructure';
 import CanvasScreenLoading from './Loading';
 import CanvasScreenError from './Error';
-import useExecuteFunction from '../../hooks/useExecuteFunction';
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
 import {loadStructure} from '../../redux/canvas/slice';
 import '@material/web/iconbutton/icon-button.js';
@@ -19,8 +18,6 @@ function CanvasScreen() {
   const structureId = params.structureId!;
 
   const {structureData, isLoading, isError} = useStructure(structureId);
-  const {executeFunction, isLoading: isExecutionFunctionSubmitting} =
-    useExecuteFunction();
 
   useEffect(() => {
     if (structureData) dispatch(loadStructure(structureData));
@@ -38,7 +35,7 @@ function CanvasScreen() {
         <Canvas frames={frames} />
       </div>
       <div className="flex h-1/2 w-full lg:h-full lg:w-2/5">
-        <Outlet context={{executeFunction, isExecutionFunctionSubmitting}} />
+        <Outlet />
       </div>
     </div>
   );
