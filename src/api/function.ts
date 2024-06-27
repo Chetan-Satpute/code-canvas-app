@@ -44,5 +44,5 @@ export async function postFunctionExecution(
   );
 
   const responseData = await response.json();
-  return responseData;
+  return responseData as PostFunctionExecutionResponseData;
 }

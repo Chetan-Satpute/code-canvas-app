@@ -1,25 +1,35 @@
+import {useEffect} from 'react';
 import {Outlet, useParams} from 'react-router-dom';
-import '@material/web/iconbutton/icon-button.js';
-import '@material/web/icon/icon.js';
 import Header from './components/Header';
 import Canvas from './components/Canvas';
 import {useStructure} from './hooks/useStructure';
 import CanvasScreenLoading from './Loading';
 import CanvasScreenError from './Error';
 import useExecuteFunction from '../../hooks/useExecuteFunction';
+import {useAppDispatch, useAppSelector} from '../../redux/hooks';
+import {loadStructure} from '../../redux/canvas/slice';
+import '@material/web/iconbutton/icon-button.js';
+import '@material/web/icon/icon.js';
 
 function CanvasScreen() {
   const params = useParams();
+  const dispatch = useAppDispatch();
+
+  const structureFrame = useAppSelector(state => state.canvas.structureFrame);
   const structureId = params.structureId!;
 
   const {structureData, isLoading, isError} = useStructure(structureId);
   const {executeFunction, isLoading: isExecutionFunctionSubmitting} =
     useExecuteFunction();
 
+  useEffect(() => {
+    if (structureData) dispatch(loadStructure(structureData));
+  }, [structureData, dispatch]);
+
   if (isLoading) return <CanvasScreenLoading />;
   if (!structureData || isError) return <CanvasScreenError />;
 
-  const frames = [structureData.frame];
+  const frames = [structureFrame];
 
   return (
     <div className="flex h-screen w-screen flex-col bg-surface lg:flex-row">

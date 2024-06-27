@@ -50,8 +50,6 @@ function FunctionCard(props: FunctionCardProps) {
     const hasError = Object.values(values).some(v => v === null);
     const validatedValues = values as Record<string, FunctionArgument>;
 
-    console.log(hasError);
-
     if (!hasError) {
       executeFunction({
         structureName,
