@@ -9,6 +9,7 @@ declare global {
       'md-icon': unknown;
       'md-outlined-button': unknown;
       'md-filled-text-field': unknown;
+      'md-circular-progress': unknown;
     }
   }
 }
