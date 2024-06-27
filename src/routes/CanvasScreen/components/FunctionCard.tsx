@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {useOutletContext, useParams} from 'react-router-dom';
 import '@material/web/button/filled-tonal-button.js';
 import '@material/web/button/outlined-button.js';
 import '@material/web/textfield/filled-text-field.js';
@@ -10,11 +11,18 @@ import {
   FunctionArgumentType,
   FunctionInfo,
 } from '../../../lib/types';
+import {CanvasScreenOutletContext} from '../types';
 
 interface FunctionCardProps extends FunctionInfo {}
 
 function FunctionCard(props: FunctionCardProps) {
-  const {name, parameters, animated} = props;
+  const {id: functionId, name, parameters, animated} = props;
+
+  const params = useParams();
+  const structureName = params.structureId!;
+
+  const {executeFunction, isExecutionFunctionSubmitting} =
+    useOutletContext() as CanvasScreenOutletContext;
 
   const [values, setValues] = useState(() => propsToValuesState(props));
   const [errors, setErrors] = useState(() => propsToErrorState(props));
@@ -28,19 +36,30 @@ function FunctionCard(props: FunctionCardProps) {
   };
 
   const handleSubmit = () => {
-    let hasError = false;
-
     setErrors(() =>
       props.parameters.reduce(
         (acc, obj) => {
-          hasError = values[obj.label] === null;
-          acc[obj.label] = hasError;
+          acc[obj.label] = values[obj.label] === null;
 
           return acc;
         },
         {} as Record<string, boolean>
       )
     );
+
+    const hasError = Object.values(values).some(v => v === null);
+    const validatedValues = values as Record<string, FunctionArgument>;
+
+    console.log(hasError);
+
+    if (!hasError) {
+      executeFunction({
+        structureName,
+        functionId,
+        structureData: '[]',
+        args: validatedValues,
+      });
+    }
   };
 
   const inputFields = parameters.map(param => {
@@ -81,14 +100,22 @@ function FunctionCard(props: FunctionCardProps) {
 
       <div className="flex justify-end">
         {animated ? (
-          <md-filled-tonal-button trailing-icon onClick={handleSubmit}>
+          <md-filled-tonal-button
+            trailing-icon
+            onClick={handleSubmit}
+            disabled={isExecutionFunctionSubmitting || undefined}
+          >
             Animate
             <md-icon slot="icon" class="icon-filled">
               play_circle
             </md-icon>
           </md-filled-tonal-button>
         ) : (
-          <md-outlined-button trailing-icon onClick={handleSubmit}>
+          <md-outlined-button
+            trailing-icon
+            onClick={handleSubmit}
+            disabled={isExecutionFunctionSubmitting || undefined}
+          >
             Run
             <md-icon slot="icon" class="icon-filled">
               skip_next

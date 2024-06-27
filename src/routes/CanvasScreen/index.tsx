@@ -6,12 +6,15 @@ import Canvas from './components/Canvas';
 import {useStructure} from './hooks/useStructure';
 import CanvasScreenLoading from './Loading';
 import CanvasScreenError from './Error';
+import useExecuteFunction from '../../hooks/useExecuteFunction';
 
 function CanvasScreen() {
   const params = useParams();
   const structureId = params.structureId!;
 
   const {structureData, isLoading, isError} = useStructure(structureId);
+  const {executeFunction, isLoading: isExecutionFunctionSubmitting} =
+    useExecuteFunction();
 
   if (isLoading) return <CanvasScreenLoading />;
   if (!structureData || isError) return <CanvasScreenError />;
@@ -25,7 +28,7 @@ function CanvasScreen() {
         <Canvas frames={frames} />
       </div>
       <div className="flex h-1/2 w-full lg:h-full lg:w-2/5">
-        <Outlet />
+        <Outlet context={{executeFunction, isExecutionFunctionSubmitting}} />
       </div>
     </div>
   );
