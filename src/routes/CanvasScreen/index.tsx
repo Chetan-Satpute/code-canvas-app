@@ -14,6 +14,11 @@ function CanvasScreen() {
   const params = useParams();
   const dispatch = useAppDispatch();
 
+  const steps = useAppSelector(state => state.canvas.steps);
+  const currentStepIndex = useAppSelector(
+    state => state.canvas.currentStepIndex
+  );
+
   const structureFrame = useAppSelector(state => state.canvas.structureFrame);
   const structureId = params.structureId!;
 
@@ -26,7 +31,8 @@ function CanvasScreen() {
   if (isLoading) return <CanvasScreenLoading />;
   if (!structureData || isError) return <CanvasScreenError />;
 
-  const frames = [structureFrame];
+  const currentStep = steps[currentStepIndex];
+  const frames = currentStep ? currentStep.frames : [structureFrame];
 
   return (
     <div className="flex h-screen w-screen flex-col bg-surface lg:flex-row">

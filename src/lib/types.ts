@@ -38,3 +38,9 @@ export interface FunctionSection {
   title: string;
   functions: FunctionInfo[];
 }
+
+export interface Step {
+  frames: Frame[];
+  hlLines: number[];
+  callStack: string[];
+}
