@@ -5,14 +5,18 @@ import useCanvasInteractions from '../../../hooks/useCanvasInteractions';
 import useFrames from '../hooks/useFrames';
 import {drawEdge} from '../../../lib/canvas/edge';
 import {drawLabel} from '../../../lib/canvas/label';
-import {Frame} from '../../../lib/types';
+import {useAppSelector} from '../../../redux/hooks';
 
-interface CanvasProps {
-  frames: Frame[];
-}
+function Canvas() {
+  const steps = useAppSelector(state => state.canvas.steps);
+  const currentStepIndex = useAppSelector(
+    state => state.canvas.currentStepIndex
+  );
 
-function Canvas(props: CanvasProps) {
-  const {frames} = props;
+  const structureFrame = useAppSelector(state => state.canvas.structureFrame);
+
+  const currentStep = steps[currentStepIndex];
+  const frames = currentStep ? currentStep.frames : [structureFrame];
 
   const canvasContainerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
