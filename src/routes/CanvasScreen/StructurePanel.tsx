@@ -1,17 +1,18 @@
 import {useParams} from 'react-router-dom';
 import FunctionCard from './components/FunctionCard';
+import StructurePanelLoading from './components/StructurePanelLoading';
 import useFunctionSections from './hooks/useFunctionSections';
+import FetchError from '../../components/FetchError';
 
 function StructurePanel() {
   const params = useParams();
   const structureId = params.structureId!;
 
-  const {functionSections, isLoading, isError} =
+  const {functionSections, isLoading, isError, refetch} =
     useFunctionSections(structureId);
 
-  if (isLoading) return <span className="text-on-surface">Loading...</span>;
-  if (!functionSections || isError)
-    return <span className="text-on-surface">Fetch error...</span>;
+  if (isLoading) return <StructurePanelLoading />;
+  if (!functionSections || isError) return <FetchError retry={refetch} />;
 
   const sections = functionSections.map(section => {
     const cards = section.functions.map(funcInfo => (
