@@ -35,8 +35,15 @@ function AnimateController() {
           skip_previous
         </md-icon>
       </md-filled-tonal-button>
-      <md-filled-tonal-button class="flex-1 rounded-none" onClick={handleStop}>
+      <md-filled-tonal-button
+        trailing-icon
+        class="flex-1 rounded-none"
+        onClick={handleStop}
+      >
         Stop
+        <md-icon slot="icon" class="icon-filled">
+          stop
+        </md-icon>
       </md-filled-tonal-button>
       <md-filled-tonal-button
         trailing-icon
