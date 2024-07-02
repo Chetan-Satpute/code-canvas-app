@@ -1,0 +1,9 @@
+import {CanvasState} from '../slice';
+
+function stopAnimateReducer(state: CanvasState) {
+  state.code = '';
+  state.steps = [];
+  state.currentStepIndex = 0;
+}
+
+export default stopAnimateReducer;

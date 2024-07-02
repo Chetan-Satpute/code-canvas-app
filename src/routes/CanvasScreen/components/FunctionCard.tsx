@@ -15,17 +15,20 @@ import {
 import FilledTonalButton from '../../../components/FilledTonalButton';
 import OutlinedButton from '../../../components/OutlinedButton';
 import useExecuteFunction from '../../../hooks/useExecuteFunction';
+import {useAppSelector} from '../../../redux/hooks';
 
 interface FunctionCardProps extends FunctionInfo {}
 
 function FunctionCard(props: FunctionCardProps) {
   const {id: functionId, name, parameters, animated} = props;
 
+  const structureData = useAppSelector(state => state.canvas.structureData);
+
   const params = useParams();
   const structureName = params.structureId!;
 
   const {executeFunction, isLoading: isExecutionFunctionSubmitting} =
-    useExecuteFunction();
+    useExecuteFunction(structureName, functionId);
 
   const [values, setValues] = useState(() => propsToValuesState(props));
   const [errors, setErrors] = useState(() => propsToErrorState(props));
@@ -57,7 +60,7 @@ function FunctionCard(props: FunctionCardProps) {
       executeFunction({
         structureName,
         functionId,
-        structureData: '[]',
+        structureData: structureData,
         args: validatedValues,
       });
     }
@@ -74,6 +77,7 @@ function FunctionCard(props: FunctionCardProps) {
             placeholder={param.placeholder}
             supportingText={param.supportingText}
             onChange={handleValueChange}
+            onError={handleError}
           />
         );
       case FunctionArgumentType.NumberArray:

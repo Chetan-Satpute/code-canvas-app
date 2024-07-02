@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import {FunctionArgument} from '../lib/types';
 
 interface NumberInputProps {
@@ -7,12 +6,11 @@ interface NumberInputProps {
   supportingText: string;
   error: boolean;
   onChange: (label: string, value: FunctionArgument | null) => void;
+  onError: (label: string, value: boolean) => void;
 }
 
 function NumberInput(props: NumberInputProps) {
-  const {error, label, placeholder, supportingText, onChange} = props;
-
-  const [validationError, setValidationError] = useState(false);
+  const {error, label, placeholder, supportingText, onChange, onError} = props;
 
   const handleInput: React.ChangeEventHandler<HTMLInputElement> = event => {
     const valueString = event.target.value;
@@ -20,19 +18,19 @@ function NumberInput(props: NumberInputProps) {
 
     if (valueString.length === 0) {
       onChange(label, null);
-      setValidationError(false);
+      onError(label, false);
     } else if (Number.isNaN(value)) {
       onChange(label, null);
-      setValidationError(true);
+      onError(label, true);
     } else {
       onChange(label, value);
-      setValidationError(false);
+      onError(label, false);
     }
   };
 
   return (
     <md-filled-text-field
-      error={validationError || error || undefined}
+      error={error || undefined}
       label={label}
       placeholder={placeholder}
       supporting-text={supportingText}

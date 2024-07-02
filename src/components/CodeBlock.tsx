@@ -24,7 +24,7 @@ function CodeBlock(props: Props) {
         dangerouslySetInnerHTML={{__html: lineHtml}}
         className={
           isHighlighted
-            ? 'border-l-4 border-l-tertiary pl-2'
+            ? 'border-l-4 border-l-tertiary bg-gradient-to-r from-tertiary/10 pl-2'
             : 'border-l-4 border-l-transparent pl-2'
         }
       />
