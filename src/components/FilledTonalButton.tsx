@@ -1,6 +1,7 @@
 import '@material/web/button/filled-tonal-button.js';
 
 interface FilledTonalButtonProps {
+  className?: string;
   title: string;
   endIcon: string;
   loading: boolean;
@@ -9,9 +10,10 @@ interface FilledTonalButtonProps {
 }
 
 function FilledTonalButton(props: FilledTonalButtonProps) {
-  const {title, endIcon, disabled, loading, onClick} = props;
+  const {className = '', title, endIcon, disabled, loading, onClick} = props;
   return (
     <md-filled-tonal-button
+      class={className}
       trailing-icon={endIcon || undefined}
       disabled={disabled || undefined}
       onClick={onClick}

@@ -1,5 +1,5 @@
 import {API_URL} from '../constants/env';
-import {Frame, FunctionArgument, FunctionSection, Step} from '../lib/types';
+import {Frame, FunctionArgument, FunctionSection} from '../lib/types';
 
 export interface GetFunctionSectionsResponseData {
   functionSections: FunctionSection[];
@@ -16,7 +16,6 @@ export interface PostFunctionExecutionResponseData {
   frame: Frame;
   data: string;
   code: string;
-  steps: Step[];
 }
 
 export interface PostFunctionExecutionVariables {

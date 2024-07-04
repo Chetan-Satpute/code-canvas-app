@@ -1,4 +1,5 @@
 import {useCallback, useRef} from 'react';
+import {useParams} from 'react-router-dom';
 import useAnimationFrame from '../../../hooks/useAnimationFrame';
 import {drawNode} from '../../../lib/canvas/node';
 import useCanvasInteractions from '../../../hooks/useCanvasInteractions';
@@ -6,8 +7,14 @@ import useFrames from '../hooks/useFrames';
 import {drawEdge} from '../../../lib/canvas/edge';
 import {drawLabel} from '../../../lib/canvas/label';
 import {useAppSelector} from '../../../redux/hooks';
+import useSteps from '../hooks/useSteps';
 
 function Canvas() {
+  const params = useParams();
+  const isRunning = params.algorithmId;
+
+  useSteps();
+
   const steps = useAppSelector(state => state.canvas.steps);
   const currentStepIndex = useAppSelector(
     state => state.canvas.currentStepIndex
@@ -16,7 +23,11 @@ function Canvas() {
   const structureFrame = useAppSelector(state => state.canvas.structureFrame);
 
   const currentStep = steps[currentStepIndex];
-  const frames = currentStep ? currentStep.frames : [structureFrame];
+  const frames = isRunning
+    ? currentStep
+      ? currentStep.frames
+      : [{nodes: [], edges: [], labels: []}]
+    : [structureFrame];
 
   const canvasContainerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);

@@ -7,6 +7,7 @@ import AnimateController from './components/AnimateController';
 function AlgorithmPanel() {
   const params = useParams();
   const structureId = params.structureId!;
+  const isRunning = params.algorithmId;
 
   const code = useAppSelector(state => state.canvas.code);
   const steps = useAppSelector(state => state.canvas.steps);
@@ -15,9 +16,12 @@ function AlgorithmPanel() {
   );
 
   const currentStep = steps[currentStepIndex];
-  if (!currentStep) {
+  if (!isRunning) {
     return <Navigate to={`/${structureId}`} />;
   }
+
+  const hlLines = currentStep?.hlLines || [];
+  const callStack = currentStep?.callStack || [];
 
   return (
     <div className="flex flex-1 flex-col overflow-auto p-2">
@@ -26,11 +30,11 @@ function AlgorithmPanel() {
       </div>
       <div className="flex-1 overflow-auto">
         <div className="flex h-3/4 flex-col">
-          <CodeBlock text={code} hlLines={currentStep.hlLines} />
+          <CodeBlock text={code} hlLines={hlLines} />
         </div>
         <div className="flex h-1/4 flex-col">
           <h4 className="p-3 font-salsa text-on-surface">Call stack</h4>
-          <CallStack signatures={currentStep.callStack} />
+          <CallStack signatures={callStack} />
         </div>
       </div>
     </div>

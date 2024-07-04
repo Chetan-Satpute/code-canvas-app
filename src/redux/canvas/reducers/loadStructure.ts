@@ -1,6 +1,6 @@
 import {PayloadAction} from '@reduxjs/toolkit';
 import {CanvasState} from '../slice';
-import {Frame, Step} from '../../../lib/types';
+import {Frame} from '../../../lib/types';
 
 export function loadStructureReducer(
   state: CanvasState,
@@ -8,11 +8,11 @@ export function loadStructureReducer(
     frame: Frame;
     data: string;
     code?: string;
-    steps?: Step[];
+    runId?: string;
   }>
 ) {
   state.structureData = action.payload.data;
   state.structureFrame = action.payload.frame;
   state.code = action.payload.code || '';
-  state.steps = action.payload.steps || [];
+  state.runId = action.payload.runId || '';
 }

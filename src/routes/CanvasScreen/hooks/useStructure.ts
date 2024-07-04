@@ -7,5 +7,10 @@ export function useStructure(structureName: string) {
     queryFn: () => getStructure(structureName),
   });
 
-  return {structureData: data, isLoading: isLoading || isRefetching, isError, refetch};
+  return {
+    structureData: data,
+    isLoading: isLoading || isRefetching,
+    isError,
+    refetch,
+  };
 }
