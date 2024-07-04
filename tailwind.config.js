@@ -45,6 +45,7 @@ export default {
       fontFamily: {
         salsa: ['Salsa', 'system-ui'],
         kalam: ['Kalam', 'cursive'],
+        ubuntu: ['Ubuntu Mono', 'monospace'],
       },
     },
   },

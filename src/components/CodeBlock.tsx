@@ -32,8 +32,10 @@ function CodeBlock(props: Props) {
   });
 
   return (
-    <pre className="flex flex-1 overflow-auto">
-      <code className="hljs flex-1 overflow-auto rounded-xl">{lines}</code>
+    <pre className="flex flex-1 overflow-auto font-ubuntu">
+      <code className="hljs flex-1 overflow-auto rounded-xl font-ubuntu text-sm">
+        {lines}
+      </code>
     </pre>
   );
 }
