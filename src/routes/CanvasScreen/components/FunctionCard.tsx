@@ -23,12 +23,17 @@ function FunctionCard(props: FunctionCardProps) {
   const {id: functionId, name, parameters, animated} = props;
 
   const structureData = useAppSelector(state => state.canvas.structureData);
+  const isExecuteFunctionSubmitting = useAppSelector(
+    state => state.canvas.isExecuteFunctionSubmitting
+  );
 
   const params = useParams();
   const structureName = params.structureId!;
 
-  const {executeFunction, isLoading: isExecutionFunctionSubmitting} =
-    useExecuteFunction(structureName, functionId);
+  const {executeFunction, isPending} = useExecuteFunction(
+    structureName,
+    functionId
+  );
 
   const [values, setValues] = useState(() => propsToValuesState(props));
   const [errors, setErrors] = useState(() => propsToErrorState(props));
@@ -108,16 +113,16 @@ function FunctionCard(props: FunctionCardProps) {
           <FilledTonalButton
             title="Animate"
             endIcon="play_circle"
-            loading={isExecutionFunctionSubmitting}
-            disabled={isExecutionFunctionSubmitting}
+            loading={isPending}
+            disabled={isExecuteFunctionSubmitting}
             onClick={handleSubmit}
           />
         ) : (
           <OutlinedButton
             title="Run"
             endIcon="skip_next"
-            loading={isExecutionFunctionSubmitting}
-            disabled={isExecutionFunctionSubmitting}
+            loading={isPending}
+            disabled={isExecuteFunctionSubmitting}
             onClick={handleSubmit}
           />
         )}

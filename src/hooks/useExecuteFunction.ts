@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useMutation} from '@tanstack/react-query';
 import {
@@ -6,12 +5,11 @@ import {
   postFunctionExecution,
 } from '../api/function';
 import {useAppDispatch} from '../redux/hooks';
-import {loadStructure} from '../redux/canvas/slice';
+import {executeFunctionSubmitting, loadStructure} from '../redux/canvas/slice';
 
 function useExecuteFunction(structureId: string, functionId: string) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [submitInProgress, setSubmitInProgress] = useState(false);
 
   const {mutate, isPending} = useMutation({
     mutationKey: ['function-execution'],
@@ -20,15 +18,15 @@ function useExecuteFunction(structureId: string, functionId: string) {
       dispatch(loadStructure(data));
       navigate(`/${structureId}/${functionId}`);
     },
-    onSettled: () => setSubmitInProgress(false),
+    onSettled: () => dispatch(executeFunctionSubmitting(false)),
   });
 
   const executeFunction = (variables: PostFunctionExecutionVariables) => {
-    setSubmitInProgress(true);
+    dispatch(executeFunctionSubmitting(true));
     mutate(variables);
   };
 
-  return {executeFunction, isLoading: submitInProgress || isPending};
+  return {executeFunction, isPending};
 }
 
 export default useExecuteFunction;
