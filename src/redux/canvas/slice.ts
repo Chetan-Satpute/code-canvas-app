@@ -3,6 +3,7 @@ import {Frame, Step} from '../../lib/types';
 import {loadStructureReducer} from './reducers/loadStructure';
 import changeStepReducer from './reducers/changeStep';
 import stopAnimateReducer from './reducers/stopAnimate';
+import executeFunctionSubmittingReducer from './reducers/executeFunctionSubmitting';
 
 export interface CanvasState {
   structureData: string;
@@ -11,6 +12,8 @@ export interface CanvasState {
   code: string;
   steps: Step[];
   currentStepIndex: number;
+
+  isExecuteFunctionSubmitting: boolean;
 }
 
 const initialState: CanvasState = {
@@ -20,6 +23,8 @@ const initialState: CanvasState = {
   code: '',
   steps: [],
   currentStepIndex: 0,
+
+  isExecuteFunctionSubmitting: false,
 };
 
 const canvasSlice = createSlice({
@@ -29,9 +34,15 @@ const canvasSlice = createSlice({
     loadStructure: loadStructureReducer,
     changeStep: changeStepReducer,
     stopAnimate: stopAnimateReducer,
+    executeFunctionSubmitting: executeFunctionSubmittingReducer,
   },
 });
 
-export const {changeStep, loadStructure, stopAnimate} = canvasSlice.actions;
+export const {
+  changeStep,
+  loadStructure,
+  stopAnimate,
+  executeFunctionSubmitting,
+} = canvasSlice.actions;
 
 export default canvasSlice.reducer;
