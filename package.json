@@ -14,6 +14,7 @@
   "dependencies": {
     "@fontsource/kalam": "^5.0.13",
     "@fontsource/salsa": "^5.0.19",
+    "@fontsource/ubuntu-mono": "^5.0.20",
     "@material/web": "^1.5.0",
     "@reduxjs/toolkit": "^2.2.5",
     "@tanstack/react-query": "^5.45.1",
