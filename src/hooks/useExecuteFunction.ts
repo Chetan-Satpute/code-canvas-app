@@ -14,9 +14,11 @@ function useExecuteFunction(structureId: string, functionId: string) {
   const {mutate, isPending} = useMutation({
     mutationKey: ['function-execution'],
     mutationFn: postFunctionExecution,
-    onSuccess: data => {
+    onSuccess: (data, variables) => {
+      const {animated} = variables;
       dispatch(loadStructure(data));
-      navigate(`/${structureId}/${functionId}`);
+
+      if (animated) navigate(`/${structureId}/${functionId}`);
     },
     onSettled: () => dispatch(executeFunctionSubmitting(false)),
   });
