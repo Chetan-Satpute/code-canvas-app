@@ -23,6 +23,7 @@ export interface PostFunctionExecutionVariables {
   functionId: string;
   structureData: string;
   args: Record<string, FunctionArgument>;
+  animated: boolean;
 }
 
 export async function postFunctionExecution(

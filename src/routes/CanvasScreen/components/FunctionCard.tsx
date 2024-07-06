@@ -67,6 +67,7 @@ function FunctionCard(props: FunctionCardProps) {
         functionId,
         structureData: structureData,
         args: validatedValues,
+        animated: animated,
       });
     }
   };
