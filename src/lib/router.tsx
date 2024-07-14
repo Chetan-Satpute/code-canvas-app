@@ -1,11 +1,11 @@
-import {createBrowserRouter} from 'react-router-dom';
+import {createHashRouter} from 'react-router-dom';
 import HomeScreen from '../routes/HomeScreen';
 import CanvasScreen from '../routes/CanvasScreen';
 import AlgorithmPanel from '../routes/CanvasScreen/AlgorithmPanel';
 import StructurePanel from '../routes/CanvasScreen/StructurePanel';
 import ErrorScreen from '../routes/ErrorScreen';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: 'something-went-wrong',
     element: <ErrorScreen />,

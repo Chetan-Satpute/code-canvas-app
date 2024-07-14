@@ -1,7 +1,10 @@
-import { PayloadAction } from "@reduxjs/toolkit";
-import { CanvasState} from '../slice';
+import {PayloadAction} from '@reduxjs/toolkit';
+import {CanvasState} from '../slice';
 
-function executeFunctionSubmittingReducer(state: CanvasState, action: PayloadAction<boolean>) {
+function executeFunctionSubmittingReducer(
+  state: CanvasState,
+  action: PayloadAction<boolean>
+) {
   state.isExecuteFunctionSubmitting = action.payload;
 }
 
